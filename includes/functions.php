@@ -32,10 +32,6 @@ function beez_add_menu() {
 }
 add_action( 'admin_menu', 'beez_add_menu' );
 
-
-function beez_menu_manage_page() {
-}
-
 function beez_menu_settings_page() {
 }
 
