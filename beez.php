@@ -3,7 +3,7 @@
 /**
  * @link              https://github.com/Frenziecodes/Beez/
  * @since             1.0.0
- * @package           Beez
+ * @package           Business hours management
  *
  * @wordpress-plugin
  * Plugin Name:       Business hours management
