@@ -19,11 +19,13 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+    die;
 }
 
 /**
  * Current plugin version.
  */
 define( 'BUSINESS_HOURS_MANAGEMENT_VERSION', '1.0.0' );
+
+require plugin_dir_path( __FILE__ ) . 'includes/functions.php';
