@@ -6,11 +6,11 @@
  * @package           Beez
  *
  * @wordpress-plugin
- * Plugin Name:       Beez - Business hours management
+ * Plugin Name:       Business hours management
  * Plugin URI:        https://github.com/Frenziecodes/Beez/
  * Description:       Effortlessly display and manage business hours on your website.
  * Version:           1.0.0
- * Author:            Lewis ushindi, Frenziecodes
+ * Author:            WpNizzle
  * Author URI:        https://github.com/Frenziecodes
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
@@ -22,3 +22,8 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+/**
+ * Current plugin version.
+ */
+define( 'BUSINESS_HOURS_MANAGEMENT_VERSION', '1.0.0' );
