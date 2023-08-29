@@ -1,0 +1,2 @@
+# Beez
+Business Hours plugin
