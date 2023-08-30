@@ -29,4 +29,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'BUSINESS_HOURS_MANAGEMENT_VERSION', '1.0.0' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/functions.php';
-require plugin_dir_path( __FILE__ ) . 'admin/beez-manage.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-shortcode.php';
+require plugin_dir_path( __FILE__ ) . 'admin/beez-settings.php';

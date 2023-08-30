@@ -10,16 +10,7 @@ function beez_add_menu() {
         'beez_menu_manage_page',
 		'dashicons-store'
     );
-
-    add_submenu_page(
-        'beez_menu',
-        __('Manage', 'beez-management'),
-        __('Manage', 'beez-management'),
-        'manage_options',
-        'beez_menu_manage',
-        'beez_menu_manage_page'
-    );
-
+    
     add_submenu_page(
         'beez_menu',
         __('Settings', 'beez-management'),
@@ -31,7 +22,4 @@ function beez_add_menu() {
     remove_submenu_page( 'beez_menu', 'beez_menu' );
 }
 add_action( 'admin_menu', 'beez_add_menu' );
-
-function beez_menu_settings_page() {
-}
 
