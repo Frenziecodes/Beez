@@ -49,7 +49,31 @@ function beez_business_hours_shortcode($atts) {
             }  
         $output .= '</div>';        
         
-        $output .= '<p>' . esc_html__('Opening Hours:', 'beez-management') . ' ' . esc_html($opening_hours) . ' - ' . esc_html($closing_hours) . '</p>';
+        // Display opening and closing hours for each day
+$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+$output .= '<ul class="beez-opening-hours-list">';
+foreach ($days as $day) {
+    $opening_hours = get_option("beez_opening_hours_$day", '');
+    $closing_hours = get_option("beez_closing_hours_$day", '');
+
+    // Convert hours to selected time format
+    // if ($time_format === '12-hour') {
+    //     $opening_hours = date('h:i A', strtotime($opening_hours));
+    //     $closing_hours = date('h:i A', strtotime($closing_hours));
+    // }
+
+    // Display "Closed" if opening hours are blank
+    $opening_display = !empty($opening_hours) ? esc_html($opening_hours) : 'Closed';
+
+    $output .= '<li><strong>' . esc_html(ucfirst($day)) . ':</strong> ' . $opening_display;
+    if (!empty($closing_hours)) {
+        $output .= ' - ' . esc_html($closing_hours);
+    }
+    $output .= '</li>';
+}
+$output .= '</ul>';
+
+
         
         $output .= '<div class="beez-display-message" style="margin-top: 20px; text-align: left;">';
 
