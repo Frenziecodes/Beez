@@ -36,12 +36,20 @@ function beez_menu_settings_page() {
  
         update_option('beez_bg_color', sanitize_hex_color($_POST['bg_color']));
         update_option('beez_text_color', sanitize_hex_color($_POST['text_color']));
+
+        $display_timezone_message = isset($_POST['display_timezone_message']) ? 'on' : 'off';
+        update_option('beez_display_timezone_message', $display_timezone_message);
+
+        $display_local_time_message = isset($_POST['display_local_time_message']) ? 'on' : 'off';
+        update_option('beez_display_local_time_message', $display_local_time_message);
     }
 
     // Retrieve settings
     $time_format = get_option('beez_time_format', '12-hour');
     $opening_hours = get_option('beez_opening_hours', '');
     $closing_hours = get_option('beez_closing_hours', '');
+    $display_timezone_message = get_option('beez_display_timezone_message', 'off');
+    $display_local_time_message = get_option('beez_display_local_time_message', 'off');
     $title = get_option('beez_title', '');
     $opening_message = get_option('beez_opening_message', '');
     $open_label = get_option('beez_open_label', '');
@@ -103,6 +111,16 @@ function beez_menu_settings_page() {
                     echo '<option value="' . esc_attr($timezone_value) . '" ' . selected($selected_timezone, $timezone_value, false) . '>' . esc_html($timezone_label) . '</option>';
                 } ?>
             </select>
+
+            <h3><?php esc_html_e('Display Messages', 'beez-management'); ?></h3>
+        <label>
+            <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
+            <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
+        </label>
+        <label>
+            <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
+            <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
+        </label>
 
             <h3><?php esc_html_e('Appearance', 'beez-management'); ?></h3>
             <label for="bg_color"><?php esc_html_e('Background Color:', 'beez-management'); ?></label>

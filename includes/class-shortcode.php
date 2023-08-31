@@ -13,6 +13,9 @@ function beez_business_hours_shortcode($atts) {
     $text_color = get_option('beez_text_color', '#000000');
     $time_format = get_option('beez_time_format', '12-hour');
 
+    $display_timezone_message = get_option('beez_display_timezone_message', 'off');
+    $display_local_time_message = get_option('beez_display_local_time_message', 'off');
+
     $selected_timezone = get_option('beez_selected_timezone', 'UTC');
     date_default_timezone_set($selected_timezone);
 
@@ -82,6 +85,20 @@ function beez_business_hours_shortcode($atts) {
                 $output .= '<p>' . esc_html($closing_message) . '</p>';
             }
         $output .= '</div>';
+        // Display timezone message if enabled
+    if ($display_timezone_message === 'on') {
+        $output .= '<div class="beez-display-message">';
+        $output .= '<p>Our business hours are displayed in ' . esc_html($selected_timezone) . ' timezone.</p>';
+        $output .= '</div>';
+    }
+
+    // Display local time message if enabled
+    if ($display_local_time_message === 'on') {
+        $current_local_time = date('l, F j, Y H:i', current_time('timestamp', true)); // Fetch current time with user's timezone
+        $output .= '<div class="beez-display-message">';
+        $output .= '<p>Our current local time is ' . esc_html($current_local_time) . '.</p>';
+        $output .= '</div>';
+    }
 
     $output .= '</div>';
 
