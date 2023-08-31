@@ -71,7 +71,8 @@ function beez_menu_settings_page() {
         <form method="post" class="settings-content">
             <!-- start of tab -->
             <div id="content-tab1" class="beez-tab-content" style="display: block;">
-                <p>Shortcode = [business_hours]</p>
+            <p><span class="copy-business-hours-shortcode"> short code to use [business_hours]</span></p>
+
                 <?php
                 $current_local_time = date('H:i', current_time('timestamp', true));
                 echo '<p>Enter time hours in 24-hour format e.g ' . esc_html($current_local_time) . '</p>';
@@ -174,7 +175,7 @@ function beez_menu_settings_page() {
                 <h3><?php esc_html_e('Display Messages', 'beez-management'); ?></h3>
                 <div  style="display: flex; flex-direction:column;">
                     <label style="margin-bottom: 10px;">
-                        <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
+                        <input type="checkbox" class="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
                         <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
                     </label>
                     <label>
@@ -200,7 +201,7 @@ function beez_menu_settings_page() {
             <!-- end of tab -->
 
             <p class="submit">
-                <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e('Save Changes', 'beez-management'); ?>">
+                <input type="submit" name="submit" id="submit" class="button" style="margin-left: 5px; border: 2px solid #fff; color: white; background-color: rgb(151, 25, 122);" value="<?php esc_attr_e('Save Changes', 'beez-management'); ?>">
             </p>
 
         </form>
