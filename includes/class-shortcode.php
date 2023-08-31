@@ -20,7 +20,8 @@ function beez_business_hours_shortcode($atts) {
     date_default_timezone_set($selected_timezone);
 
     $current_day = date_i18n('l');
-    $current_time = current_time('H:i');
+    $current_time =  date('H:i', current_time('timestamp', true));
+   
 
     $opening_hours = get_option("beez_opening_hours_$current_day", '');
     $closing_hours = get_option("beez_closing_hours_$current_day", '');
