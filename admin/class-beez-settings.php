@@ -71,6 +71,7 @@ function beez_menu_settings_page() {
         <form method="post" class="settings-content">
             <!-- start of tab -->
             <div id="content-tab1" class="beez-tab-content" style="display: block;">
+                <p>Shortcode = [business_hours]</p>
                 <?php
                 $current_local_time = date('H:i', current_time('timestamp', true));
                 echo '<p>Enter time hours in 24-hour format e.g ' . esc_html($current_local_time) . '</p>';
