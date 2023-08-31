@@ -94,10 +94,16 @@ function beez_business_hours_shortcode($atts) {
     }
 
     // Display local time message if enabled
-    if ($display_local_time_message === 'on') {
-        $current_local_time = date('H:i l, F j, Y', current_time('timestamp', true));
+    if ($display_local_time_message === 'on') {        
         $output .= '<div class="">';
-        $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
+        if ( $time_format === '12-hour' ) {
+            $current_local_time = date('h:i A l', current_time('timestamp', true));
+    $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
+        } else{
+            $current_local_time = date('H:i l', current_time('timestamp', true));
+            $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
+        }
+        
         $output .= '</div>';
     }
 
@@ -106,4 +112,3 @@ function beez_business_hours_shortcode($atts) {
     return $output;
 }
 add_shortcode('business_hours', 'beez_business_hours_shortcode');
-
