@@ -38,3 +38,11 @@ add_action( 'admin_enqueue_scripts', 'beez_management_enqueue_scripts' );
 require plugin_dir_path( __FILE__ ) . 'includes/functions.php';
 require plugin_dir_path( __FILE__ ) . 'includes/class-shortcode.php';
 require plugin_dir_path( __FILE__ ) . 'admin/class-beez-settings.php';
+
+// Add custom action link to the plugin's action links
+function beez_management_add_settings_link($links) {
+    $settings_link = '<a href="' . admin_url('admin.php?page=beez_menu_settings') . '">' . esc_html__('Settings', 'beez-management') . '</a>';
+    array_push($links, $settings_link);
+    return $links;
+}
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'beez_management_add_settings_link');
