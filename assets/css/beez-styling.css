@@ -1,5 +1,29 @@
-.beez-hours-inputs{
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* background-color: red; */
+.beez-tabs {
+    display: flex;
+    max-width: 630px;
+    background-color: #eee;
+}
+
+.settings-content{
+    max-width: 630px;
+    background-color: #eee;
+}
+.beez-tab {
+    padding: 10px 13px;
+    background-color: #fff;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-right: 10px;
+}
+
+.beez-tab-content {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #eee;
+    min-height: 300px;
+}
+.active {
+    background-color: #eee;
 }
