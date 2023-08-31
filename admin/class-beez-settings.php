@@ -68,7 +68,7 @@ function beez_menu_settings_page() {
             <div class="beez-tab" id="tab4"><?php esc_html_e('Appearance', 'beez-management'); ?></div>
         </div>
 
-        <form method="post">
+        <form method="post" class="settings-content">
             <!-- start of tab -->
             <div id="content-tab1" class="beez-tab-content" style="display: block;">
                 <p><?php esc_html_e('Enter time hours in 24-hour format e.g 17:00, 08:20.', 'beez-management'); ?></p>
@@ -146,15 +146,16 @@ function beez_menu_settings_page() {
 
             <div id="content-tab3" class="beez-tab-content">
                 <h3><?php esc_html_e('Time Format', 'beez-management'); ?></h3>
-                <label>
-                    <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
-                    <?php esc_html_e('12-hour Format', 'beez-management'); ?>
-                </label>
-                <label>
-                    <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
-                    <?php esc_html_e('24-hour Format', 'beez-management'); ?>
-                </label>
-                
+                <div>
+                    <label>
+                        <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
+                        <?php esc_html_e('12-hour Format', 'beez-management'); ?>
+                    </label>
+                    <label>
+                        <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
+                        <?php esc_html_e('24-hour Format', 'beez-management'); ?>
+                    </label>
+                </div>
 
                 <h3><?php esc_html_e('Timezone', 'beez-management'); ?></h3>
                 <label for="selected_timezone"><?php esc_html_e('Select Timezone:', 'beez-management'); ?></label>
@@ -166,14 +167,16 @@ function beez_menu_settings_page() {
 
 
                 <h3><?php esc_html_e('Display Messages', 'beez-management'); ?></h3>
-                <label>
-                    <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
-                    <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
-                </label>
-                <label>
-                    <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
-                    <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
-                </label>
+                <div  style="display: flex; flex-direction:column;">
+                    <label style="margin-bottom: 10px;">
+                        <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
+                        <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
+                        <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
+                    </label>
+                </div>               
 
             </div>
 
@@ -206,11 +209,18 @@ function beez_menu_settings_page() {
 <style>
     .beez-tabs {
         display: flex;
+        max-width: 630px;
+        background-color: #eee;
     }
 
+    .settings-content{
+        max-width: 630px;
+        background-color: #eee;
+        /* height: 400px; */
+    }
     .beez-tab {
-        padding: 10px 20px;
-        background-color: #f0f0f0;
+        padding: 10px 13px;
+        background-color: #fff;
         cursor: pointer;
         border: 1px solid #ddd;
         border-bottom: none;
@@ -221,7 +231,11 @@ function beez_menu_settings_page() {
         display: none;
         border: 1px solid #ddd;
         padding: 20px;
-        background-color: #fff;
+        background-color: #eee;
+        min-height: 300px;
+    }
+    .active {
+        background-color: #eee;
     }
 </style>
 
@@ -232,9 +246,17 @@ function beez_menu_settings_page() {
 
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
                 tabContents.forEach(content => content.style.display = 'none');
                 tabContents[index].style.display = 'block';
             });
         });
+
+        // Set the first tab as active by default
+        tabs[0].classList.add('active');
+        tabContents[0].style.display = 'block';
     });
 </script>
+
