@@ -50,9 +50,9 @@ function beez_business_hours_shortcode($atts) {
         $output .= '</div>';        
         
         // Display opening and closing hours for each day
-$days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
-$output .= '<ul class="beez-opening-hours-list">';
-foreach ($days as $day) {
+        $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+        $output .= '<ul class="beez-opening-hours-list">';
+        foreach ($days as $day) {
     $opening_hours = get_option("beez_opening_hours_$day", '');
     $closing_hours = get_option("beez_closing_hours_$day", '');
 
