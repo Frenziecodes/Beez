@@ -68,27 +68,23 @@ function beez_menu_settings_page() {
             }
             ?>
 
-            <label for="opening_hours"><?php esc_html_e('Opening Hours:', 'beez-management'); ?></label>
-            <input type="text" name="opening_hours" id="opening_hours" value="<?php echo esc_attr($opening_hours); ?>" />
+            <section class="beez-hours-inputs" style="display: flex; flex-direction: column;">               
 
-            <label for="closing_hours"><?php esc_html_e('Closing Hours:', 'beez-management'); ?></label>
-            <input type="text" name="closing_hours" id="closing_hours" value="<?php echo esc_attr($closing_hours); ?>" />
+                <label for="title"><?php esc_html_e('Title:', 'beez-management'); ?></label>
+                <input type="text" name="title" id="title" value="<?php echo esc_attr($title); ?>" />
 
-            <label for="title"><?php esc_html_e('Title:', 'beez-management'); ?></label>
-            <input type="text" name="title" id="title" value="<?php echo esc_attr($title); ?>" />
+                <label for="opening_message"><?php esc_html_e('Opening Message:', 'beez-management'); ?></label>
+                <input type="text" name="opening_message" id="opening_message" value="<?php echo esc_attr($opening_message); ?>" />
 
-            <label for="opening_message"><?php esc_html_e('Opening Message:', 'beez-management'); ?></label>
-            <input type="text" name="opening_message" id="opening_message" value="<?php echo esc_attr($opening_message); ?>" />
+                <label for="open_label"><?php esc_html_e('Opening label:', 'beez-management'); ?></label>
+                <input type="text" name="open_label" id="open_label" value="<?php echo esc_attr($open_label); ?>" />
 
-            <label for="open_label"><?php esc_html_e('Opening label:', 'beez-management'); ?></label>
-            <input type="text" name="open_label" id="open_label" value="<?php echo esc_attr($open_label); ?>" />
+                <label for="closing_message"><?php esc_html_e('Closing Message:', 'beez-management'); ?></label>
+                <input type="text" name="closing_message" id="closing_message" value="<?php echo esc_attr($closing_message); ?>" />
 
-            <label for="closing_message"><?php esc_html_e('Closing Message:', 'beez-management'); ?></label>
-            <input type="text" name="closing_message" id="closing_message" value="<?php echo esc_attr($closing_message); ?>" />
-
-            <label for="close_label"><?php esc_html_e('Closing label:', 'beez-management'); ?></label>
-            <input type="text" name="close_label" id="close_label" value="<?php echo esc_attr($close_label); ?>" />
-
+                <label for="close_label"><?php esc_html_e('Closing label:', 'beez-management'); ?></label>
+                <input type="text" name="close_label" id="close_label" value="<?php echo esc_attr($close_label); ?>" />
+            </section>
 
             <h3><?php esc_html_e('Time Format', 'beez-management'); ?></h3>
             <label>
