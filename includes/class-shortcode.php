@@ -98,7 +98,7 @@ function beez_business_hours_shortcode($atts) {
         $output .= '<div class="">';
         if ( $time_format === '12-hour' ) {
             $current_local_time = date('h:i A l', current_time('timestamp', true));
-    $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
+            $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
         } else{
             $current_local_time = date('H:i l', current_time('timestamp', true));
             $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';

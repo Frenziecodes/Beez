@@ -62,16 +62,22 @@ function beez_menu_settings_page() {
     ?>
     <div class="wrap">
         <div class="beez-tabs">
-            <div class="beez-tab" id="tab1"><?php esc_html_e('Opening and Closing Hours', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab1"><?php esc_html_e('General', 'beez-management'); ?></div>
             <div class="beez-tab" id="tab2"><?php esc_html_e('Messages', 'beez-management'); ?></div>
-            <div class="beez-tab" id="tab3"><?php esc_html_e('Time Format & Timezone', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab3"><?php esc_html_e('Advanced', 'beez-management'); ?></div>
             <div class="beez-tab" id="tab4"><?php esc_html_e('Appearance', 'beez-management'); ?></div>
         </div>
 
-        <form method="post">
+        <form method="post" class="settings-content">
             <!-- start of tab -->
             <div id="content-tab1" class="beez-tab-content" style="display: block;">
-                <p><?php esc_html_e('Enter time hours in 24-hour format e.g 17:00, 08:20.', 'beez-management'); ?></p>
+            <p><span class="copy-business-hours-shortcode"> short code to use [business_hours]</span></p>
+
+                <?php
+                $current_local_time = date('H:i', current_time('timestamp', true));
+                echo '<p>Enter time hours in 24-hour format e.g ' . esc_html($current_local_time) . '</p>';
+                ?>
+                <!-- <p><?php esc_html_e('Enter time hours in 24-hour format e.g 17:00, 08:20.', 'beez-management'); ?></p> -->
 
                 <?php
                 $days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
@@ -146,15 +152,16 @@ function beez_menu_settings_page() {
 
             <div id="content-tab3" class="beez-tab-content">
                 <h3><?php esc_html_e('Time Format', 'beez-management'); ?></h3>
-                <label>
-                    <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
-                    <?php esc_html_e('12-hour Format', 'beez-management'); ?>
-                </label>
-                <label>
-                    <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
-                    <?php esc_html_e('24-hour Format', 'beez-management'); ?>
-                </label>
-                
+                <div>
+                    <label>
+                        <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
+                        <?php esc_html_e('12-hour Format', 'beez-management'); ?>
+                    </label>
+                    <label>
+                        <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
+                        <?php esc_html_e('24-hour Format', 'beez-management'); ?>
+                    </label>
+                </div>
 
                 <h3><?php esc_html_e('Timezone', 'beez-management'); ?></h3>
                 <label for="selected_timezone"><?php esc_html_e('Select Timezone:', 'beez-management'); ?></label>
@@ -166,14 +173,16 @@ function beez_menu_settings_page() {
 
 
                 <h3><?php esc_html_e('Display Messages', 'beez-management'); ?></h3>
-                <label>
-                    <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
-                    <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
-                </label>
-                <label>
-                    <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
-                    <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
-                </label>
+                <div  style="display: flex; flex-direction:column;">
+                    <label style="margin-bottom: 10px;">
+                        <input type="checkbox" class="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
+                        <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
+                        <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
+                    </label>
+                </div>               
 
             </div>
 
@@ -192,7 +201,7 @@ function beez_menu_settings_page() {
             <!-- end of tab -->
 
             <p class="submit">
-                <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e('Save Changes', 'beez-management'); ?>">
+                <input type="submit" name="submit" id="submit" class="button" style="margin-left: 5px; border: 2px solid #fff; color: white; background-color: rgb(151, 25, 122);" value="<?php esc_attr_e('Save Changes', 'beez-management'); ?>">
             </p>
 
         </form>
@@ -200,41 +209,4 @@ function beez_menu_settings_page() {
     <?php
 }
 
-?>
 
-
-<style>
-    .beez-tabs {
-        display: flex;
-    }
-
-    .beez-tab {
-        padding: 10px 20px;
-        background-color: #f0f0f0;
-        cursor: pointer;
-        border: 1px solid #ddd;
-        border-bottom: none;
-        margin-right: 10px;
-    }
-
-    .beez-tab-content {
-        display: none;
-        border: 1px solid #ddd;
-        padding: 20px;
-        background-color: #fff;
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabs = document.querySelectorAll('.beez-tab');
-        const tabContents = document.querySelectorAll('.beez-tab-content');
-
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => {
-                tabContents.forEach(content => content.style.display = 'none');
-                tabContents[index].style.display = 'block';
-            });
-        });
-    });
-</script>
