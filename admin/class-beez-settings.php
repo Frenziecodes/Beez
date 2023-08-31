@@ -71,7 +71,11 @@ function beez_menu_settings_page() {
         <form method="post" class="settings-content">
             <!-- start of tab -->
             <div id="content-tab1" class="beez-tab-content" style="display: block;">
-                <p><?php esc_html_e('Enter time hours in 24-hour format e.g 17:00, 08:20.', 'beez-management'); ?></p>
+                <?php
+                $current_local_time = date('H:i', current_time('timestamp', true));
+                echo '<p>Enter time hours in 24-hour format e.g ' . esc_html($current_local_time) . '</p>';
+                ?>
+                <!-- <p><?php esc_html_e('Enter time hours in 24-hour format e.g 17:00, 08:20.', 'beez-management'); ?></p> -->
 
                 <?php
                 $days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
