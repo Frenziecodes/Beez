@@ -15,33 +15,25 @@ function beez_get_timezones() {
 function beez_menu_settings_page() {
     // Save Settings
      if (isset($_POST['submit'])) {
-        // Save opening and closing hours for each day
+
         $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
         foreach ($days as $day) {
             update_option("beez_opening_hours_$day", sanitize_text_field($_POST["opening_hours_$day"]));
             update_option("beez_closing_hours_$day", sanitize_text_field($_POST["closing_hours_$day"]));
         }
 
-        // Save opening and closing hours
-        // update_option('beez_opening_hours', sanitize_text_field($_POST['opening_hours']));
-        // update_option('beez_closing_hours', sanitize_text_field($_POST['closing_hours']));
-
-        // Save messages and labels
         update_option('beez_title', sanitize_text_field($_POST['title']));
         update_option('beez_opening_message', sanitize_text_field($_POST['opening_message']));
         update_option('beez_open_label', sanitize_text_field($_POST['open_label']));
         update_option('beez_closing_message', sanitize_text_field($_POST['closing_message']));
         update_option('beez_close_label', sanitize_text_field($_POST['close_label']));
 
-         // Save time format
-         $time_format = isset($_POST['time_format']) ? sanitize_text_field($_POST['time_format']) : '12-hour';
-         update_option('beez_time_format', $time_format);
+        $time_format = isset($_POST['time_format']) ? sanitize_text_field($_POST['time_format']) : '12-hour';
+        update_option('beez_time_format', $time_format);
 
-         // Save selected timezone
         $selected_timezone = sanitize_text_field($_POST['selected_timezone']);
         update_option('beez_selected_timezone', $selected_timezone);
  
-        // Save colors
         update_option('beez_bg_color', sanitize_hex_color($_POST['bg_color']));
         update_option('beez_text_color', sanitize_hex_color($_POST['text_color']));
     }
@@ -57,9 +49,7 @@ function beez_menu_settings_page() {
     $close_label = get_option('beez_close_label', '');
     $bg_color = get_option('beez_bg_color', '#ffffff');
     $text_color = get_option('beez_text_color', '#000000');
-    $selected_timezone = get_option('beez_selected_timezone', 'UTC'); // Retrieve selected timezone
-
-    // Get available timezones
+    $selected_timezone = get_option('beez_selected_timezone', 'UTC');
     $available_timezones = beez_get_timezones();
     ?>
     <div class="wrap">
