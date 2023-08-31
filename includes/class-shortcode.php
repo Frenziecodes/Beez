@@ -22,18 +22,20 @@ function beez_business_hours_shortcode($atts) {
     $opening_hours = get_option("beez_opening_hours_$current_day", '');
     $closing_hours = get_option("beez_closing_hours_$current_day", '');
 
-    // Convert hours to selected time format
-    if ($time_format === '12-hour') {
-        $opening_hours = date('h:i A', strtotime($opening_hours));
-        $closing_hours = date('h:i A', strtotime($closing_hours));
-    }
-    
-    
     $is_open = ($current_time >= $opening_hours && $current_time <= $closing_hours);
 
     // Get current day and date
     $current_day = date_i18n('l');
     $current_date = date_i18n('F j, Y');
+
+    // Convert hours to selected time format for display only
+    if ($time_format === '12-hour') {
+        $opening_hours_display = !empty($opening_hours) ? date('h:i A', strtotime($opening_hours)) : 'Closed';
+        $closing_hours_display = !empty($closing_hours) ? date('h:i A', strtotime($closing_hours)) : '';
+    } else {
+        $opening_hours_display = !empty($opening_hours) ? $opening_hours : 'Closed';
+        $closing_hours_display = !empty($closing_hours) ? $closing_hours : '';
+    }
 
     // Create the HTML output
     $output = '<div class="beez-business-hours" style="border: 1px solid ' . esc_attr($bg_color) . '; width: 300px;">';
@@ -56,27 +58,24 @@ function beez_business_hours_shortcode($atts) {
             $opening_hours = get_option("beez_opening_hours_$day", '');
             $closing_hours = get_option("beez_closing_hours_$day", '');
 
-            // Convert hours to selected time format
-            if ( $time_format === '12-hour' ) {
-                $opening_hours = date( 'h:i A', strtotime( $opening_hours ) );
-                $closing_hours = date('h:i A', strtotime( $closing_hours ) );
+            // Convert hours to selected time format for display only
+            if ($time_format === '12-hour') {
+                $opening_hours_display = !empty($opening_hours) ? date('h:i A', strtotime($opening_hours)) : 'Closed';
+                $closing_hours_display = !empty($closing_hours) ? date('h:i A', strtotime($closing_hours)) : '';
+            } else {
+                $opening_hours_display = !empty($opening_hours) ? $opening_hours : 'Closed';
+                $closing_hours_display = !empty($closing_hours) ? $closing_hours : '';
             }
 
-            // Display "Closed" if opening hours are blank
-            $opening_display = !empty($opening_hours) ? esc_html($opening_hours) : 'Closed';
-
-            $output .= '<li><strong>' . esc_html(ucfirst($day)) . ':</strong> ' . $opening_display;
-            if (!empty($closing_hours)) {
-                $output .= ' - ' . esc_html($closing_hours);
+            $output .= '<li><strong>' . esc_html(ucfirst($day)) . ':</strong> ' . esc_html($opening_hours_display);
+            if (!empty($closing_hours_display)) {
+                $output .= ' - ' . esc_html($closing_hours_display);
             }
             $output .= '</li>';
         }
         $output .= '</ul>';
 
-
-        
         $output .= '<div class="beez-display-message" style="margin-top: 20px; text-align: left;">';
-
             if ($is_open) {
                 $output .= '<p>' . esc_html($opening_message) . '</p>';
             } else {
@@ -89,3 +88,4 @@ function beez_business_hours_shortcode($atts) {
     return $output;
 }
 add_shortcode('business_hours', 'beez_business_hours_shortcode');
+
