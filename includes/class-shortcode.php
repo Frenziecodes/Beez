@@ -87,16 +87,16 @@ function beez_business_hours_shortcode($atts) {
         $output .= '</div>';
         // Display timezone message if enabled
     if ($display_timezone_message === 'on') {
-        $output .= '<div class="beez-display-message">';
-        $output .= '<p>Our business hours are displayed in ' . esc_html($selected_timezone) . ' timezone.</p>';
+        $output .= '<div class="">';
+        $output .= '<p>Our hours are displayed in ' . esc_html($selected_timezone) . ' timezone.</p>';
         $output .= '</div>';
     }
 
     // Display local time message if enabled
     if ($display_local_time_message === 'on') {
-        $current_local_time = date('l, F j, Y H:i', current_time('timestamp', true)); // Fetch current time with user's timezone
-        $output .= '<div class="beez-display-message">';
-        $output .= '<p>Our current local time is ' . esc_html($current_local_time) . '.</p>';
+        $current_local_time = date('H:i l, F j, Y', current_time('timestamp', true));
+        $output .= '<div class="">';
+        $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
         $output .= '</div>';
     }
 
