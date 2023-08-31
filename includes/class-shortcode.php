@@ -4,8 +4,8 @@ function beez_business_hours_shortcode($atts) {
     $atts = shortcode_atts(array(), $atts);
 
     // Retrieve saved settings
-    $opening_hours = get_option('beez_opening_hours', '');
-    $closing_hours = get_option('beez_closing_hours', '');
+    // $opening_hours = get_option('beez_opening_hours', '');
+    // $closing_hours = get_option('beez_closing_hours', '');
     $title = get_option('beez_title', '');
     $opening_message = get_option('beez_opening_message', '');
     $open_label = get_option('beez_open_label', '');
@@ -13,9 +13,22 @@ function beez_business_hours_shortcode($atts) {
     $close_label = get_option('beez_close_label', '');
     $bg_color = get_option('beez_bg_color', '#ffffff');
     $text_color = get_option('beez_text_color', '#000000');
+    $time_format = get_option('beez_time_format', '12-hour');
 
-    // Determine if currently open
+
+    $current_day = date_i18n('l');
     $current_time = current_time('H:i');
+
+    $opening_hours = get_option("beez_opening_hours_$current_day", '');
+    $closing_hours = get_option("beez_closing_hours_$current_day", '');
+
+    // Convert hours to selected time format
+    if ($time_format === '12-hour') {
+        $opening_hours = date('h:i A', strtotime($opening_hours));
+        $closing_hours = date('h:i A', strtotime($closing_hours));
+    }
+    
+    
     $is_open = ($current_time >= $opening_hours && $current_time <= $closing_hours);
 
     // Get current day and date

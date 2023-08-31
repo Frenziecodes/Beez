@@ -3,9 +3,16 @@
 function beez_menu_settings_page() {
     // Save Settings
      if (isset($_POST['submit'])) {
+        // Save opening and closing hours for each day
+        $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+        foreach ($days as $day) {
+            update_option("beez_opening_hours_$day", sanitize_text_field($_POST["opening_hours_$day"]));
+            update_option("beez_closing_hours_$day", sanitize_text_field($_POST["closing_hours_$day"]));
+        }
+
         // Save opening and closing hours
-        update_option('beez_opening_hours', sanitize_text_field($_POST['opening_hours']));
-        update_option('beez_closing_hours', sanitize_text_field($_POST['closing_hours']));
+        // update_option('beez_opening_hours', sanitize_text_field($_POST['opening_hours']));
+        // update_option('beez_closing_hours', sanitize_text_field($_POST['closing_hours']));
 
         // Save messages and labels
         update_option('beez_title', sanitize_text_field($_POST['title']));
@@ -13,6 +20,10 @@ function beez_menu_settings_page() {
         update_option('beez_open_label', sanitize_text_field($_POST['open_label']));
         update_option('beez_closing_message', sanitize_text_field($_POST['closing_message']));
         update_option('beez_close_label', sanitize_text_field($_POST['close_label']));
+
+         // Save time format
+         $time_format = isset($_POST['time_format']) ? sanitize_text_field($_POST['time_format']) : '12-hour';
+         update_option('beez_time_format', $time_format);
  
         // Save colors
         update_option('beez_bg_color', sanitize_hex_color($_POST['bg_color']));
@@ -20,6 +31,7 @@ function beez_menu_settings_page() {
     }
 
     // Retrieve settings
+    $time_format = get_option('beez_time_format', '12-hour');
     $opening_hours = get_option('beez_opening_hours', '');
     $closing_hours = get_option('beez_closing_hours', '');
     $title = get_option('beez_title', '');
@@ -34,6 +46,18 @@ function beez_menu_settings_page() {
         <h2><?php esc_html_e('Business Hours Settings', 'beez-management'); ?></h2>
         <form method="post">
             <h3><?php esc_html_e('Opening and Closing Hours', 'beez-management'); ?></h3>
+
+            <?php
+            $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+            foreach ($days as $day) {
+                echo '<label for="opening_hours_' . $day . '">' . esc_html(ucfirst($day)) . ' ' . esc_html__('Opening Hours:', 'beez-management') . '</label>';
+                echo '<input type="text" name="opening_hours_' . $day . '" id="opening_hours_' . $day . '" value="' . esc_attr(get_option("beez_opening_hours_$day", '')) . '" />';
+                
+                echo '<label for="closing_hours_' . $day . '">' . esc_html(ucfirst($day)) . ' ' . esc_html__('Closing Hours:', 'beez-management') . '</label>';
+                echo '<input type="text" name="closing_hours_' . $day . '" id="closing_hours_' . $day . '" value="' . esc_attr(get_option("beez_closing_hours_$day", '')) . '" />';
+            }
+            ?>
+
             <label for="opening_hours"><?php esc_html_e('Opening Hours:', 'beez-management'); ?></label>
             <input type="text" name="opening_hours" id="opening_hours" value="<?php echo esc_attr($opening_hours); ?>" />
 
@@ -54,6 +78,17 @@ function beez_menu_settings_page() {
 
             <label for="close_label"><?php esc_html_e('Closing label:', 'beez-management'); ?></label>
             <input type="text" name="close_label" id="close_label" value="<?php echo esc_attr($close_label); ?>" />
+
+
+            <h3><?php esc_html_e('Time Format', 'beez-management'); ?></h3>
+            <label>
+                <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
+                <?php esc_html_e('12-hour Format', 'beez-management'); ?>
+            </label>
+            <label>
+                <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
+                <?php esc_html_e('24-hour Format', 'beez-management'); ?>
+            </label>
 
             <h3><?php esc_html_e('Appearance', 'beez-management'); ?></h3>
             <label for="bg_color"><?php esc_html_e('Background Color:', 'beez-management'); ?></label>
