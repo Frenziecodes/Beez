@@ -18,24 +18,37 @@ function beez_business_hours_shortcode($atts) {
     $current_time = current_time('H:i');
     $is_open = ($current_time >= $opening_hours && $current_time <= $closing_hours);
 
-    // Create the HTML output
-    $output = '<div class="beez-business-hours" style="background-color: ' . esc_attr($bg_color) . '; color: ' . esc_attr($text_color) . ';">';
-    $output .= '<h2>' . esc_html($title) . '</h2>';
-    // $output .= '<p>' . esc_html($opening_message) . '</p>';
+    // Get current day and date
+    $current_day = date_i18n('l');
+    $current_date = date_i18n('F j, Y');
 
-    if ( $is_open ) {
-        $output .= '<p>' . esc_html($opening_message) . '</p>';
-    } else {
-        $output .= '<p>' . esc_html($closing_message) . '</p>';
-    }
-    
-    if ($is_open) {
-        $output .= '<span class="beez-label">' . esc_html($open_label) . '</span>';
-    } else {
-        $output .= '<span class="beez-label"> Today: ' . esc_html__($close_label) . '</span>';
-    }
-    
-    $output .= '<p>' . esc_html__('Opening Hours:', 'beez-management') . ' ' . esc_html($opening_hours) . ' - ' . esc_html($closing_hours) . '</p>';
+    // Create the HTML output
+    $output = '<div class="beez-business-hours" style="border: 1px solid ' . esc_attr($bg_color) . '; width: 300px;">';
+        $output .= '<div class="beez-header" style="padding: 2px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; background-color: ' . esc_attr($bg_color) . '; color: ' . esc_attr($text_color) . ';">';
+            $output .= '<h2>' . esc_html($title) . '</h2>';
+            $output .= '<div class="beez-day-date">';
+                $output .= '<p>' . esc_html($current_day) . ', ' . esc_html($current_date) . '</p>';
+            $output .= '</div>';
+        $output .= '</div>';        
+        
+        $output .= '<p>' . esc_html__('Opening Hours:', 'beez-management') . ' ' . esc_html($opening_hours) . ' - ' . esc_html($closing_hours) . '</p>';
+        
+        
+        if ($is_open) {
+            $output .= '<span class="beez-label">' . esc_html__('Today:', 'beez-management') . ' <span class="open-label" style="background-color: ' . esc_attr($bg_color) . '; color: ' . esc_attr($text_color) . ';">' . esc_html($open_label) . '</span></span>';
+        } else {
+            $output .= '<span class="beez-label">' . esc_html__('Today', 'beez-management') . ' <span class="close-label" style="padding: 4px; border-radius: 5px; background-color: ' . esc_attr($bg_color) . '; color: ' . esc_attr($text_color) . ';">' . esc_html($close_label) . '</span></span>';
+        }        
+
+        $output .= '<div class="beez-display-message" style="margin-top: 20px; text-align: left;">';
+
+            if ($is_open) {
+                $output .= '<p>' . esc_html($opening_message) . '</p>';
+            } else {
+                $output .= '<p>' . esc_html($closing_message) . '</p>';
+            }
+        $output .= '</div>';
+
     $output .= '</div>';
 
     return $output;
