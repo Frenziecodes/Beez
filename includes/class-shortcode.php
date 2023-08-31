@@ -16,6 +16,9 @@ function beez_business_hours_shortcode($atts) {
     $time_format = get_option('beez_time_format', '12-hour');
 
 
+    $selected_timezone = get_option('beez_selected_timezone', 'UTC');
+    date_default_timezone_set($selected_timezone); // Set the selected timezone
+
     $current_day = date_i18n('l');
     $current_time = current_time('H:i');
 

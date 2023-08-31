@@ -1,5 +1,17 @@
 <?php
 
+function beez_get_timezones() {
+    $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+    $timezones_list = array();
+
+    foreach ($timezones as $timezone) {
+        $timezones_list[$timezone] = $timezone;
+    }
+
+    return $timezones_list;
+}
+
+
 function beez_menu_settings_page() {
     // Save Settings
      if (isset($_POST['submit'])) {
@@ -24,6 +36,10 @@ function beez_menu_settings_page() {
          // Save time format
          $time_format = isset($_POST['time_format']) ? sanitize_text_field($_POST['time_format']) : '12-hour';
          update_option('beez_time_format', $time_format);
+
+         // Save selected timezone
+        $selected_timezone = sanitize_text_field($_POST['selected_timezone']);
+        update_option('beez_selected_timezone', $selected_timezone);
  
         // Save colors
         update_option('beez_bg_color', sanitize_hex_color($_POST['bg_color']));
@@ -41,6 +57,10 @@ function beez_menu_settings_page() {
     $close_label = get_option('beez_close_label', '');
     $bg_color = get_option('beez_bg_color', '#ffffff');
     $text_color = get_option('beez_text_color', '#000000');
+    $selected_timezone = get_option('beez_selected_timezone', 'UTC'); // Retrieve selected timezone
+
+    // Get available timezones
+    $available_timezones = beez_get_timezones();
     ?>
     <div class="wrap">
         <h2><?php esc_html_e('Business Hours Settings', 'beez-management'); ?></h2>
@@ -89,6 +109,14 @@ function beez_menu_settings_page() {
                 <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
                 <?php esc_html_e('24-hour Format', 'beez-management'); ?>
             </label>
+
+            <h3><?php esc_html_e('Timezone', 'beez-management'); ?></h3>
+            <label for="selected_timezone"><?php esc_html_e('Select Timezone:', 'beez-management'); ?></label>
+            <select name="selected_timezone" id="selected_timezone">
+                <?php foreach ($available_timezones as $timezone_value => $timezone_label) {
+                    echo '<option value="' . esc_attr($timezone_value) . '" ' . selected($selected_timezone, $timezone_value, false) . '>' . esc_html($timezone_label) . '</option>';
+                } ?>
+            </select>
 
             <h3><?php esc_html_e('Appearance', 'beez-management'); ?></h3>
             <label for="bg_color"><?php esc_html_e('Background Color:', 'beez-management'); ?></label>
