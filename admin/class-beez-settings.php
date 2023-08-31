@@ -62,9 +62,9 @@ function beez_menu_settings_page() {
     ?>
     <div class="wrap">
         <div class="beez-tabs">
-            <div class="beez-tab" id="tab1"><?php esc_html_e('Opening and Closing Hours', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab1"><?php esc_html_e('General', 'beez-management'); ?></div>
             <div class="beez-tab" id="tab2"><?php esc_html_e('Messages', 'beez-management'); ?></div>
-            <div class="beez-tab" id="tab3"><?php esc_html_e('Time Format & Timezone', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab3"><?php esc_html_e('Advanced', 'beez-management'); ?></div>
             <div class="beez-tab" id="tab4"><?php esc_html_e('Appearance', 'beez-management'); ?></div>
         </div>
 
