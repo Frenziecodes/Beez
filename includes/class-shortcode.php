@@ -20,7 +20,8 @@ function beez_business_hours_shortcode($atts) {
     date_default_timezone_set($selected_timezone);
 
     $current_day = date_i18n('l');
-    $current_time = current_time('H:i');
+    $current_time =  date('H:i', current_time('timestamp', true));
+   
 
     $opening_hours = get_option("beez_opening_hours_$current_day", '');
     $closing_hours = get_option("beez_closing_hours_$current_day", '');
@@ -87,16 +88,22 @@ function beez_business_hours_shortcode($atts) {
         $output .= '</div>';
         // Display timezone message if enabled
     if ($display_timezone_message === 'on') {
-        $output .= '<div class="beez-display-message">';
-        $output .= '<p>Our business hours are displayed in ' . esc_html($selected_timezone) . ' timezone.</p>';
+        $output .= '<div class="">';
+        $output .= '<p>Our hours are displayed in ' . esc_html($selected_timezone) . ' timezone.</p>';
         $output .= '</div>';
     }
 
     // Display local time message if enabled
-    if ($display_local_time_message === 'on') {
-        $current_local_time = date('l, F j, Y H:i', current_time('timestamp', true)); // Fetch current time with user's timezone
-        $output .= '<div class="beez-display-message">';
-        $output .= '<p>Our current local time is ' . esc_html($current_local_time) . '.</p>';
+    if ($display_local_time_message === 'on') {        
+        $output .= '<div class="">';
+        if ( $time_format === '12-hour' ) {
+            $current_local_time = date('h:i A l', current_time('timestamp', true));
+    $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
+        } else{
+            $current_local_time = date('H:i l', current_time('timestamp', true));
+            $output .= '<p>Our local time is ' . esc_html($current_local_time) . '.</p>';
+        }
+        
         $output .= '</div>';
     }
 
@@ -105,4 +112,3 @@ function beez_business_hours_shortcode($atts) {
     return $output;
 }
 add_shortcode('business_hours', 'beez_business_hours_shortcode');
-

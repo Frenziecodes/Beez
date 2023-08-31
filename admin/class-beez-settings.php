@@ -61,78 +61,180 @@ function beez_menu_settings_page() {
     $available_timezones = beez_get_timezones();
     ?>
     <div class="wrap">
-        <h2><?php esc_html_e('Business Hours Settings', 'beez-management'); ?></h2>
+        <div class="beez-tabs">
+            <div class="beez-tab" id="tab1"><?php esc_html_e('Opening and Closing Hours', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab2"><?php esc_html_e('Messages', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab3"><?php esc_html_e('Time Format & Timezone', 'beez-management'); ?></div>
+            <div class="beez-tab" id="tab4"><?php esc_html_e('Appearance', 'beez-management'); ?></div>
+        </div>
+
         <form method="post">
-            <h3><?php esc_html_e('Opening and Closing Hours', 'beez-management'); ?></h3>
+            <!-- start of tab -->
+            <div id="content-tab1" class="beez-tab-content" style="display: block;">
+                <p><?php esc_html_e('Enter time hours in 24-hour format e.g 17:00, 08:20.', 'beez-management'); ?></p>
 
-            <?php
-            $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
-            foreach ($days as $day) {
-                echo '<label for="opening_hours_' . $day . '">' . esc_html(ucfirst($day)) . ' ' . esc_html__('Opening Hours:', 'beez-management') . '</label>';
-                echo '<input type="text" name="opening_hours_' . $day . '" id="opening_hours_' . $day . '" value="' . esc_attr(get_option("beez_opening_hours_$day", '')) . '" />';
+                <?php
+                $days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
+                echo '<div style="display: grid; grid-template-columns: repeat(7, 1fr); grid-gap: 20px;">';
+
+                // Days row
+                echo '<div style="display: flex; flex-direction: column; text-align: left;">';
+                echo '<label style="margin-bottom: 20px;"></label>';
+                foreach ($days as $day) {
+                    echo '<p style="margin-top: 5.5px; margin-bottom: 5.5px;">' . esc_html(ucfirst($day)) . '</p>';
+                }
+                echo '</div>';
+
+                // Opening Hours row
+                echo '<div style="display: flex; flex-direction: column; align-items: center;">';
+                echo '<label style="margin-bottom: 5px;">' . esc_html__('Opening Hours', 'beez-management') . '</label>';
+                foreach ($days as $day) {
+                    echo '<input type="text" name="opening_hours_' . $day . '" value="' . esc_attr(get_option("beez_opening_hours_$day", '')) . '" />';
+                }
+                echo '</div>';
+
+                // Closing Hours row
+                echo '<div style="display: flex; flex-direction: column; align-items: center;">';
+                echo '<label style="margin-bottom: 5px;">' . esc_html__('Closing Hours', 'beez-management') . '</label>';
+                foreach ($days as $day) {
+                    echo '<input type="text" name="closing_hours_' . $day . '" value="' . esc_attr(get_option("beez_closing_hours_$day", '')) . '" />';
+                }
+                echo '</div>';
+
+                echo '</div>';
+
+                ?>
+            </div>
+            
+            <!-- end of tab  -->
+
+            <!-- start of tab -->
+            <div id="content-tab2" class="beez-tab-content">
+                <section class="beez-hours-inputs" style="display: flex; flex-direction: column; max-width: 520px; margin-top: 30px;">               
+
+                <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 10px;">
+                    <label for="title" style="width: 26%;"><?php esc_html_e('Title:', 'beez-management'); ?></label>
+                    <input type="text" style="width: 74%;" name="title" id="title" value="<?php echo esc_attr($title); ?>" />
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 10px;">
+                    <label for="opening_message" style="width: 26%;"><?php esc_html_e('Opening Message:', 'beez-management'); ?></label>
+                    <input type="text" style="width: 74%; min-height: 50px;" name="opening_message" id="opening_message" value="<?php echo esc_attr($opening_message); ?>" />
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 10px;">
+                <label for="open_label" style="width: 26%;"><?php esc_html_e('Opening label:', 'beez-management'); ?></label>
+                <input type="text" style="width: 74%;" name="open_label" id="open_label" value="<?php echo esc_attr($open_label); ?>" />
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 10px;">
+                <label for="closing_message" style="width: 26%;"><?php esc_html_e('Closing Message:', 'beez-management'); ?></label>
+                <input type="text" style="width: 74%; min-height: 50px;" name="closing_message" id="closing_message" value="<?php echo esc_attr($closing_message); ?>" />
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 10px;">
+                <label for="close_label" style="width: 26%;"><?php esc_html_e('Closing label:', 'beez-management'); ?></label>
+                <input type="text" style="width: 74%;" name="close_label" id="close_label" value="<?php echo esc_attr($close_label); ?>" />
+                </div>
+
+                </section>
+            </div>           
+
+            <!-- End of Tab -->
+
+            <!-- start of tab  -->
+
+            <div id="content-tab3" class="beez-tab-content">
+                <h3><?php esc_html_e('Time Format', 'beez-management'); ?></h3>
+                <label>
+                    <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
+                    <?php esc_html_e('12-hour Format', 'beez-management'); ?>
+                </label>
+                <label>
+                    <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
+                    <?php esc_html_e('24-hour Format', 'beez-management'); ?>
+                </label>
                 
-                echo '<label for="closing_hours_' . $day . '">' . esc_html(ucfirst($day)) . ' ' . esc_html__('Closing Hours:', 'beez-management') . '</label>';
-                echo '<input type="text" name="closing_hours_' . $day . '" id="closing_hours_' . $day . '" value="' . esc_attr(get_option("beez_closing_hours_$day", '')) . '" />';
-            }
-            ?>
 
-            <section class="beez-hours-inputs" style="display: flex; flex-direction: column;">               
+                <h3><?php esc_html_e('Timezone', 'beez-management'); ?></h3>
+                <label for="selected_timezone"><?php esc_html_e('Select Timezone:', 'beez-management'); ?></label>
+                <select name="selected_timezone" id="selected_timezone">
+                    <?php foreach ($available_timezones as $timezone_value => $timezone_label) {
+                        echo '<option value="' . esc_attr($timezone_value) . '" ' . selected($selected_timezone, $timezone_value, false) . '>' . esc_html($timezone_label) . '</option>';
+                    } ?>
+                </select>
 
-                <label for="title"><?php esc_html_e('Title:', 'beez-management'); ?></label>
-                <input type="text" name="title" id="title" value="<?php echo esc_attr($title); ?>" />
 
-                <label for="opening_message"><?php esc_html_e('Opening Message:', 'beez-management'); ?></label>
-                <input type="text" name="opening_message" id="opening_message" value="<?php echo esc_attr($opening_message); ?>" />
+                <h3><?php esc_html_e('Display Messages', 'beez-management'); ?></h3>
+                <label>
+                    <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
+                    <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
+                </label>
+                <label>
+                    <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
+                    <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
+                </label>
 
-                <label for="open_label"><?php esc_html_e('Opening label:', 'beez-management'); ?></label>
-                <input type="text" name="open_label" id="open_label" value="<?php echo esc_attr($open_label); ?>" />
+            </div>
 
-                <label for="closing_message"><?php esc_html_e('Closing Message:', 'beez-management'); ?></label>
-                <input type="text" name="closing_message" id="closing_message" value="<?php echo esc_attr($closing_message); ?>" />
+            <!-- End of tab -->
 
-                <label for="close_label"><?php esc_html_e('Closing label:', 'beez-management'); ?></label>
-                <input type="text" name="close_label" id="close_label" value="<?php echo esc_attr($close_label); ?>" />
-            </section>
+            <!-- start of tab -->
+            <div id="content-tab4" class="beez-tab-content">           
+                <h3><?php esc_html_e('Appearance', 'beez-management'); ?></h3>
+                <label for="bg_color"><?php esc_html_e('Background Color:', 'beez-management'); ?></label>
+                <input type="color" name="bg_color" id="bg_color" value="<?php echo esc_attr($bg_color); ?>" />
 
-            <h3><?php esc_html_e('Time Format', 'beez-management'); ?></h3>
-            <label>
-                <input type="radio" name="time_format" value="12-hour" <?php checked($time_format, '12-hour'); ?>>
-                <?php esc_html_e('12-hour Format', 'beez-management'); ?>
-            </label>
-            <label>
-                <input type="radio" name="time_format" value="24-hour" <?php checked($time_format, '24-hour'); ?>>
-                <?php esc_html_e('24-hour Format', 'beez-management'); ?>
-            </label>
+                <label for="text_color"><?php esc_html_e('Text Color:', 'beez-management'); ?></label>
+                <input type="color" name="text_color" id="text_color" value="<?php echo esc_attr($text_color); ?>" />
 
-            <h3><?php esc_html_e('Timezone', 'beez-management'); ?></h3>
-            <label for="selected_timezone"><?php esc_html_e('Select Timezone:', 'beez-management'); ?></label>
-            <select name="selected_timezone" id="selected_timezone">
-                <?php foreach ($available_timezones as $timezone_value => $timezone_label) {
-                    echo '<option value="' . esc_attr($timezone_value) . '" ' . selected($selected_timezone, $timezone_value, false) . '>' . esc_html($timezone_label) . '</option>';
-                } ?>
-            </select>
-
-            <h3><?php esc_html_e('Display Messages', 'beez-management'); ?></h3>
-        <label>
-            <input type="checkbox" name="display_timezone_message" <?php checked($display_timezone_message, 'on'); ?>>
-            <?php esc_html_e('Display Timezone Message', 'beez-management'); ?>
-        </label>
-        <label>
-            <input type="checkbox" name="display_local_time_message" <?php checked($display_local_time_message, 'on'); ?>>
-            <?php esc_html_e('Display Local Time Message', 'beez-management'); ?>
-        </label>
-
-            <h3><?php esc_html_e('Appearance', 'beez-management'); ?></h3>
-            <label for="bg_color"><?php esc_html_e('Background Color:', 'beez-management'); ?></label>
-            <input type="color" name="bg_color" id="bg_color" value="<?php echo esc_attr($bg_color); ?>" />
-
-            <label for="text_color"><?php esc_html_e('Text Color:', 'beez-management'); ?></label>
-            <input type="color" name="text_color" id="text_color" value="<?php echo esc_attr($text_color); ?>" />
+            </div>
+            <!-- end of tab -->
 
             <p class="submit">
                 <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e('Save Changes', 'beez-management'); ?>">
             </p>
+
         </form>
     </div>
     <?php
 }
+
+?>
+
+
+<style>
+    .beez-tabs {
+        display: flex;
+    }
+
+    .beez-tab {
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        margin-right: 10px;
+    }
+
+    .beez-tab-content {
+        display: none;
+        border: 1px solid #ddd;
+        padding: 20px;
+        background-color: #fff;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabs = document.querySelectorAll('.beez-tab');
+        const tabContents = document.querySelectorAll('.beez-tab-content');
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                tabContents.forEach(content => content.style.display = 'none');
+                tabContents[index].style.display = 'block';
+            });
+        });
+    });
+</script>
