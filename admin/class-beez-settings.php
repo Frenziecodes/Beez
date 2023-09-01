@@ -35,7 +35,9 @@ function beez_menu_settings_page() {
         update_option( 'beez_selected_timezone', $selected_timezone );
  
         update_option( 'beez_bg_color', sanitize_hex_color( $_POST['bg_color'] ) );
+        update_option( 'beez_header_bg_color', sanitize_hex_color( $_POST['header_bg_color'] ) );
         update_option( 'beez_text_color', sanitize_hex_color( $_POST['text_color'] ) );
+        update_option( 'beez_font_size', sanitize_text_field( $_POST['font_size'] ) );
 
         $display_timezone_message = isset( $_POST['display_timezone_message'] ) ? 'on' : 'off';
         update_option( 'beez_display_timezone_message', $display_timezone_message );
@@ -46,17 +48,19 @@ function beez_menu_settings_page() {
 
     // Retrieve settings
     $time_format                = get_option( 'beez_time_format', '12-hour' );
-    $opening_hours              = get_option( 'beez_opening_hours', '' );
-    $closing_hours              = get_option( 'beez_closing_hours', '' );
-    $display_timezone_message   = get_option( 'beez_display_timezone_message', 'off' );
-    $display_local_time_message = get_option( 'beez_display_local_time_message', 'off' );
-    $title                      = get_option( 'beez_title', '' );
-    $opening_message            = get_option( 'beez_opening_message', '' );
-    $open_label                 = get_option( 'beez_open_label', '' );
-    $closing_message            = get_option( 'beez_closing_message', '' );
-    $close_label                = get_option( 'beez_close_label', '' );
-    $bg_color                   = get_option( 'beez_bg_color', '#ffffff' );
+    $opening_hours              = get_option( 'beez_opening_hours', '08:00' );
+    $closing_hours              = get_option( 'beez_closing_hours', '17:00' );
+    $display_timezone_message   = get_option( 'beez_display_timezone_message', 'on' );
+    $display_local_time_message = get_option( 'beez_display_local_time_message', 'on' );
+    $title                      = get_option( 'beez_title', 'Business Hours' );
+    $opening_message            = get_option( 'beez_opening_message', 'We are currently open!' );
+    $open_label                 = get_option( 'beez_open_label', 'open' );
+    $closing_message            = get_option( 'beez_closing_message', 'Sorry we are currently closed!' );
+    $close_label                = get_option( 'beez_close_label', 'closed' );
+    $bg_color                   = get_option( 'beez_bg_color', '#fee' );
+    $header_bg_color            = get_option( 'beez_header_bg_color', 'rgb(214, 103, 188)' );
     $text_color                 = get_option( 'beez_text_color', '#000000' );
+    $font_size                  = get_option( 'beez_font_size', '14px');
     $selected_timezone          = get_option( 'beez_selected_timezone', 'UTC' );
     $available_timezones        = beez_get_timezones();
     ?>
@@ -189,14 +193,27 @@ function beez_menu_settings_page() {
                 <!-- End of tab -->
 
                 <!-- start of tab -->
-                <div id="content-tab4" class="beez-tab-content">           
+                <div id="content-tab4" class="beez-tab-content" style="display: flex; flex-direction: column;">           
                     <h3><?php esc_html_e( 'Appearance', 'beez-management' ); ?></h3>
-                    <label for="bg_color"><?php esc_html_e( 'Background Color:', 'beez-management' ); ?></label>
-                    <input type="color" name="bg_color" id="bg_color" value="<?php echo esc_attr( $bg_color ); ?>" />
+                    <div style="margin-bottom: 7px;">
+                        <label for="bg_color"><?php esc_html_e( 'Background Color:', 'beez-management' ); ?></label>
+                        <input type="color" name="bg_color" id="bg_color" value="<?php echo esc_attr( $bg_color ); ?>" />
+                    </div>
 
-                    <label for="text_color"><?php esc_html_e( 'Text Color:', 'beez-management' ); ?></label>
-                    <input type="color" name="text_color" id="text_color" value="<?php echo esc_attr( $text_color ); ?>" />
+                    <div style="margin-bottom: 7px;">
+                        <label for="header_bg_color"><?php esc_html_e( 'Header Background Color:', 'beez-management' ); ?></label>
+                        <input type="color" name="header_bg_color" id="header_bg_color" value="<?php echo esc_attr( $header_bg_color ); ?>" />
+                    </div>
 
+                    <div style="margin-bottom: 7px;">
+                        <label for="text_color"><?php esc_html_e( 'Text Color:', 'beez-management' ); ?></label>
+                        <input type="color" name="text_color" id="text_color" value="<?php echo esc_attr( $text_color ); ?>" />
+                    </div>
+
+                    <div style="margin-bottom: 7px;">
+                        <label for="font_size"><?php esc_html_e( 'Font Size:', 'beez-management' ) ?></label>
+                        <input type="text" name="font_size" id="font_size" value="<?php echo esc_attr( $font_size ); ?>" />
+                    </div>
                 </div>
                 <!-- end of tab -->
 

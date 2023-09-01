@@ -1,6 +1,5 @@
 # BUSINESS HOURS MANAGEMENT
 
-## Description
 The **Business Hours Management** plugin is a powerful tool for effortlessly displaying and managing your business hours on your WordPress website. Whether you run a store, restaurant, or any other type of business with set operating hours, this plugin simplifies the process of sharing this crucial information with your website visitors.
 
 ### Key Features
@@ -19,13 +18,23 @@ The **Business Hours Management** plugin is a powerful tool for effortlessly dis
 
 ## Frequently Asked Questions
 **Q: How do I display my business hours on my website?**
+<br/>
 A: You can display your business hours by using the `[business_hours]` shortcode. Simply add this shortcode to any post or page where you want your business hours to appear.
+<br/>
 
 **Q: Can I customize the colors of the business hours display?**
+<br/>
 A: Yes, you can customize the background and text colors of the business hours display to match your website's design. Navigate to the 'Appearance' section in the plugin settings to make these customizations.
+<br/>
 
 **Q: What time formats are supported?**
+<br/>
 A: The plugin supports both 12-hour and 24-hour time formats. You can choose your preferred format in the 'Time Format' section of the plugin settings.
+
+## Screenshots
+![settings page](https://github.com/Frenziecodes/Beez/assets/104835999/73f953aa-820f-4be3-81bd-adf8ef1b4698)
+
+![frontend](https://github.com/Frenziecodes/Beez/assets/104835999/c3c6a8f8-8861-4eed-b89b-943eb84a778a)
 
 ## Changelog
 ### 1.0
