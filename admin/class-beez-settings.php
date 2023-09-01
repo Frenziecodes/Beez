@@ -36,6 +36,7 @@ function beez_menu_settings_page() {
  
         update_option( 'beez_bg_color', sanitize_hex_color( $_POST['bg_color'] ) );
         update_option( 'beez_text_color', sanitize_hex_color( $_POST['text_color'] ) );
+        update_option( 'beez_font_size', sanitize_text_field( $_POST['font_size'] ) );
 
         $display_timezone_message = isset( $_POST['display_timezone_message'] ) ? 'on' : 'off';
         update_option( 'beez_display_timezone_message', $display_timezone_message );
@@ -46,17 +47,18 @@ function beez_menu_settings_page() {
 
     // Retrieve settings
     $time_format                = get_option( 'beez_time_format', '12-hour' );
-    $opening_hours              = get_option( 'beez_opening_hours', '' );
-    $closing_hours              = get_option( 'beez_closing_hours', '' );
+    $opening_hours              = get_option( 'beez_opening_hours', '08:00' );
+    $closing_hours              = get_option( 'beez_closing_hours', '17:00' );
     $display_timezone_message   = get_option( 'beez_display_timezone_message', 'off' );
-    $display_local_time_message = get_option( 'beez_display_local_time_message', 'off' );
-    $title                      = get_option( 'beez_title', '' );
-    $opening_message            = get_option( 'beez_opening_message', '' );
-    $open_label                 = get_option( 'beez_open_label', '' );
-    $closing_message            = get_option( 'beez_closing_message', '' );
-    $close_label                = get_option( 'beez_close_label', '' );
+    $display_local_time_message = get_option( 'beez_display_local_time_message', 'on' );
+    $title                      = get_option( 'beez_title', 'Business Hours' );
+    $opening_message            = get_option( 'beez_opening_message', 'We are currently open!' );
+    $open_label                 = get_option( 'beez_open_label', 'open' );
+    $closing_message            = get_option( 'beez_closing_message', 'Sorry we are curently closed!' );
+    $close_label                = get_option( 'beez_close_label', 'closed' );
     $bg_color                   = get_option( 'beez_bg_color', '#ffffff' );
     $text_color                 = get_option( 'beez_text_color', '#000000' );
+    $font_size                  = get_option( 'beez_font_size', '14px');
     $selected_timezone          = get_option( 'beez_selected_timezone', 'UTC' );
     $available_timezones        = beez_get_timezones();
     ?>
@@ -197,6 +199,9 @@ function beez_menu_settings_page() {
                     <label for="text_color"><?php esc_html_e( 'Text Color:', 'beez-management' ); ?></label>
                     <input type="color" name="text_color" id="text_color" value="<?php echo esc_attr( $text_color ); ?>" />
 
+
+                    <label for="font_size"><?php esc_html_e( 'Font Size:', 'beez-management' ) ?></label>
+                    <input type="text" name="font_size" id="font_size" value="<?php echo esc_attr( $font_size ); ?>" />
                 </div>
                 <!-- end of tab -->
 

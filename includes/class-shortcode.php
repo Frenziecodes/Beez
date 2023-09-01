@@ -11,6 +11,7 @@ function beez_business_hours_shortcode( $atts ) {
 	$close_label                = get_option( 'beez_close_label', '' );
 	$bg_color                   = get_option( 'beez_bg_color', '#ffffff' );
 	$text_color                 = get_option( 'beez_text_color', '#000000' );
+	$font_size                  = get_option( 'beez_font_size', '14px');
 	$time_format                = get_option( 'beez_time_format', '12-hour' );
 
 	$display_timezone_message   = get_option( 'beez_display_timezone_message', 'off' );
@@ -42,7 +43,7 @@ function beez_business_hours_shortcode( $atts ) {
 	}
 
 	// Create the HTML output
-	$output = '<div class="beez-business-hours" style="border: 1px solid ' . esc_attr( $bg_color ) . '; width: 300px;">';
+	$output = '<div class="beez-business-hours" style="border: 1px solid ' . esc_attr( $bg_color ) . '; width: 300px; font-size: '. esc_html( $font_size) .'">';
 		$output .= '<div class="beez-header" style="padding: 2px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; background-color: ' . esc_attr( $bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">';
 			$output .= '<h2>' . esc_html( $title ) . '</h2>';
 			$output .= '<div class="beez-day-date">';
