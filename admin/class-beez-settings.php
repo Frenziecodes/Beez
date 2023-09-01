@@ -35,6 +35,7 @@ function beez_menu_settings_page() {
         update_option( 'beez_selected_timezone', $selected_timezone );
  
         update_option( 'beez_bg_color', sanitize_hex_color( $_POST['bg_color'] ) );
+        update_option( 'beez_header_bg_color', sanitize_hex_color( $_POST['header_bg_color'] ) );
         update_option( 'beez_text_color', sanitize_hex_color( $_POST['text_color'] ) );
         update_option( 'beez_font_size', sanitize_text_field( $_POST['font_size'] ) );
 
@@ -56,7 +57,8 @@ function beez_menu_settings_page() {
     $open_label                 = get_option( 'beez_open_label', 'open' );
     $closing_message            = get_option( 'beez_closing_message', 'Sorry we are curently closed!' );
     $close_label                = get_option( 'beez_close_label', 'closed' );
-    $bg_color                   = get_option( 'beez_bg_color', '#ffffff' );
+    $bg_color                   = get_option( 'beez_bg_color', '#fee' );
+    $header_bg_color            = get_option( 'beez_header_bg_color', 'rgb(214, 103, 188)' );
     $text_color                 = get_option( 'beez_text_color', '#000000' );
     $font_size                  = get_option( 'beez_font_size', '14px');
     $selected_timezone          = get_option( 'beez_selected_timezone', 'UTC' );
@@ -195,6 +197,9 @@ function beez_menu_settings_page() {
                     <h3><?php esc_html_e( 'Appearance', 'beez-management' ); ?></h3>
                     <label for="bg_color"><?php esc_html_e( 'Background Color:', 'beez-management' ); ?></label>
                     <input type="color" name="bg_color" id="bg_color" value="<?php echo esc_attr( $bg_color ); ?>" />
+
+                    <label for="header_bg_color"><?php esc_html_e( 'Header Background Color:', 'beez-management' ); ?></label>
+                    <input type="color" name="header_bg_color" id="header_bg_color" value="<?php echo esc_attr( $header_bg_color ); ?>" />
 
                     <label for="text_color"><?php esc_html_e( 'Text Color:', 'beez-management' ); ?></label>
                     <input type="color" name="text_color" id="text_color" value="<?php echo esc_attr( $text_color ); ?>" />

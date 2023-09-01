@@ -9,7 +9,8 @@ function beez_business_hours_shortcode( $atts ) {
 	$open_label                 = get_option( 'beez_open_label', '' );
 	$closing_message            = get_option( 'beez_closing_message', '' );
 	$close_label                = get_option( 'beez_close_label', '' );
-	$bg_color                   = get_option( 'beez_bg_color', '#ffffff' );
+	$bg_color                   = get_option( 'beez_bg_color', '#fee' );
+    $header_bg_color            = get_option( 'beez_header_bg_color', 'rgb(214, 103, 188)' );
 	$text_color                 = get_option( 'beez_text_color', '#000000' );
 	$font_size                  = get_option( 'beez_font_size', '14px');
 	$time_format                = get_option( 'beez_time_format', '12-hour' );
@@ -43,20 +44,20 @@ function beez_business_hours_shortcode( $atts ) {
 	}
 
 	// Create the HTML output
-	$output = '<div class="beez-business-hours" style="border: 1px solid ' . esc_attr( $bg_color ) . '; width: 300px; font-size: '. esc_html( $font_size) .'">';
-		$output .= '<div class="beez-header" style="padding: 2px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; background-color: ' . esc_attr( $bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">';
+	$output = '<div class="beez-business-hours" style="border: 1px solid ' . esc_attr( $header_bg_color ) . '; width: 300px; font-size: '. esc_html( $font_size) .'">';
+		$output .= '<div class="beez-header" style="padding: 2px; display: flex; flex-direction: column; justify-content: space-around; align-items: center; background-color: ' . esc_attr( $header_bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">';
 			$output .= '<h2 style="margin: 0;">' . esc_html( $title ) . '</h2>';
 			$output .= '<div class="beez-day-date" style="margin: 0;">';
 				$output .= '<p style="margin: 0;">' . esc_html( $current_day ) . ', ' . esc_html( $current_date ) . '</p>';
 			$output .= '</div>';
 			if ( $is_open ) {
-				$output .= '<span class="open-label" style="background-color: ' . esc_attr( $bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">' . esc_html( $open_label ) . '</span>';
+				$output .= '<span class="open-label" style="background-color: ' . esc_attr( $header_bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">' . esc_html( $open_label ) . '</span>';
 			} else {
-				$output .= '<span class="close-label" style="padding: 4px; border-radius: 5px; background-color: ' . esc_attr( $bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">' . esc_html( $close_label ) . '</span>';
+				$output .= '<span class="close-label" style="padding: 4px; border-radius: 5px; background-color: ' . esc_attr( $header_bg_color ) . '; color: ' . esc_attr( $text_color ) . ';">' . esc_html( $close_label ) . '</span>';
 			}  
 		$output .= '</div>';        
 		
-		$output .= '<div style="background-color: #fee; padding: 3px 5px">'; 
+		$output .= '<div style="background-color: ' . esc_attr( $bg_color ) . '; padding: 3px 5px">'; 
 			// Display opening and closing hours for each day.
 			$days = array( 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' );
 			$output .= '<ul class="beez-opening-hours-list " style="margin-bottom: 0;">';
