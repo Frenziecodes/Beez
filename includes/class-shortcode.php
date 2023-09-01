@@ -56,7 +56,7 @@ function beez_business_hours_shortcode( $atts ) {
 			}  
 		$output .= '</div>';        
 		
-		$output .= '<div style="background-color: #fee;">'; 
+		$output .= '<div style="background-color: #fee; padding: 3px 5px">'; 
 			// Display opening and closing hours for each day.
 			$days = array( 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' );
 			$output .= '<ul class="beez-opening-hours-list " style="margin-bottom: 0;">';
