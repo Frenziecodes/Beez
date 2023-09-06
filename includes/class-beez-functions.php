@@ -8,7 +8,7 @@ function beez_add_menu() {
         'manage_options',
         'beez_menu',
         'beez_menu_manage_page',
-		'dashicons-store'
+		'dashicons-clock'
     );
     
     add_submenu_page(
