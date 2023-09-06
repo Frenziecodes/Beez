@@ -1,5 +1,10 @@
 <?php
 
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+    die;
+}
+
 function beez_get_timezones() {
     $timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
     $timezones_list = array();
